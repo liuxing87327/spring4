@@ -61,5 +61,6 @@
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.9.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:2.12.3" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.7" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.5" level="project" />
   </component>
 </module>

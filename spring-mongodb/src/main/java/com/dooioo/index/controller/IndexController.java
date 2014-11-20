@@ -43,7 +43,8 @@ public class IndexController {
 
         for (int i = 0; i < 100; i++) {
             Map<String, Object> map = new HashMap<>();
-            map.put(String.valueOf(i), mongodbService.findOne("80002"));
+            mongodbService.findAndModify("80003");
+            map.put(String.valueOf(i), mongodbService.findOne("80003"));
             reltList.add(map);
         }
 
