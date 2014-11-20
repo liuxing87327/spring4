@@ -1,6 +1,6 @@
 package com.dooioo.mongodb.service;
 
-import com.dooioo.mongodb.data.model.Employee;
+import com.dooioo.mongodb.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

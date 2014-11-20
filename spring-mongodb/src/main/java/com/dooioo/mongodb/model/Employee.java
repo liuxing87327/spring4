@@ -1,4 +1,4 @@
-package com.dooioo.mongodb.data.model;
+package com.dooioo.mongodb.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
