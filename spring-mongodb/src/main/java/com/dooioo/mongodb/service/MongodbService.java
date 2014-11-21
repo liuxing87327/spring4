@@ -1,7 +1,6 @@
 package com.dooioo.mongodb.service;
 
 import com.dooioo.mongodb.model.Employee;
-import com.mongodb.WriteResult;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -57,6 +56,17 @@ public class MongodbService {
      */
     public void insert(Employee employee) {
         mongoTemplate.insert(employee);
+    }
+
+    /**
+     * 更新第一条数据
+     * @param userCode
+     * @return
+     */
+    public boolean updateFirst(String userCode){
+        Query query = new Query(Criteria.where("userCode").is(userCode));
+        Update update = new Update().set("updatedAt", DateTime.now().getMillis());
+        return mongoTemplate.updateFirst(query, update, Employee.class).getN() > 0;
     }
 
     /**

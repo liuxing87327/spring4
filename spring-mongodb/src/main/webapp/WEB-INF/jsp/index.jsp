@@ -11,6 +11,10 @@
 <body>
 
 Hello Word！
+<br/><br/><br/>
+<a href="/websocket/test" target="_blank">websocket test</a>
+<br/>
+<a href="/index/jsonList" target="_blank">ajax+mongodb test</a>
 
 </body>
 </html>

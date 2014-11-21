@@ -9,14 +9,14 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Simple Web Socket Client</title>
+    <title>简易WebSocket客户端</title>
     <link rel="stylesheet" type="text/css" href="/static/css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
 </head>
 <body>
 <div id="content">
     <fieldset>
-        <legend>Server Location</legend>
+        <legend>服务器配置</legend>
         <div>
             <label>URL:</label>
             <input type="text" id="serverUrl" value="ws://localhost:8080/websocket"/>
@@ -29,7 +29,7 @@
         </div>
     </fieldset>
     <fieldset id="requestArea">
-        <legend>Request</legend>
+        <legend>发送</legend>
         <div>
             <textarea id="sendMessage" disabled="disabled"></textarea>
         </div>

@@ -1,7 +1,6 @@
 package com.dooioo.mongodb.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.annotation.Id;
 
 /**
  * 功能说明：Employee
@@ -10,7 +9,6 @@ import org.springframework.data.annotation.Id;
 @Document(collection = "Employee")
 public class Employee {
 
-    @Id
     private String userCode;
     private String userName;
     private String orgName;

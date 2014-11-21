@@ -1,6 +1,7 @@
 package com.dooioo.index.controller;
 
 import com.dooioo.mongodb.service.MongodbService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,10 +42,12 @@ public class IndexController {
     public List<Map<String, Object>> jsonList() {
         List<Map<String, Object>> reltList = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 1; i < 100; i++) {
             Map<String, Object> map = new HashMap<>();
-            mongodbService.findAndModify("80003");
-            map.put(String.valueOf(i), mongodbService.findOne("80003"));
+//            mongodbService.updateFirst(String.valueOf(80000 + i));
+//            map.put(String.valueOf(i), mongodbService.findOne(String.valueOf(80000 + i)));
+
+            map.put(String.valueOf(i), DateTime.now().toString("yyyy-MM-dd HH:mm:ss.SSS"));
             reltList.add(map);
         }
 

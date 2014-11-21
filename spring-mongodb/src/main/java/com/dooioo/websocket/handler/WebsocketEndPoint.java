@@ -1,5 +1,6 @@
 package com.dooioo.websocket.handler;
 
+import org.joda.time.DateTime;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
@@ -29,7 +30,7 @@ public class WebsocketEndPoint extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         super.handleTextMessage(session, message);
-        TextMessage returnMessage = new TextMessage(message.getPayload() + " 来自服务器");
+        TextMessage returnMessage = new TextMessage(message.getPayload() + "来自服务器 " + DateTime.now().toString("yyyy-mm-dd HH:mm:ss.SSS"));
         session.sendMessage(returnMessage);
     }
 
