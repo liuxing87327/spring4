@@ -35,21 +35,34 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- 配置Form表单支持PUT，必须在dispatch前 -->
+    <filter>
+        <filter-name>httpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>httpMethodFilter</filter-name>
+        <servlet-name>spring-websocket</servlet-name>
+    </filter-mapping>
+
     <!--配置MVC请求分发器-->
     <servlet>
         <servlet-name>spring-websocket</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring/spring-mvc.xml</param-value>
-        </init-param>
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>spring-websocket</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!-- Spring 刷新Introspector防止内存泄露 -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
 
     <!--配置session过期时间-->
     <session-config>
