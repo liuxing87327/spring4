@@ -39,15 +39,17 @@
         </property>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-          p:dataSource-ref="dataSource"/>
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:sqlmap/sqlMapConfig.xml" />
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="queryDao" class="com.dooioo.dao.QueryDao" autowire="byName" p:sqlMapClient="sqlMapClient" />
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager" />
-
-    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
-                  p:configLocation="classpath:sqlmap/sqlMapConfig.xml"
-                  p:dataSource-ref="dataSource"/>
-
-    <bean id="queryDao" class="com.dooioo.dao.QueryDao" autowire="byName" p:dataSource-ref="dataSource"/>
 
 </beans>
