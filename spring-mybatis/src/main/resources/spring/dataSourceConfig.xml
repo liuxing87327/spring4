@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-autowire="byName" default-lazy-init="true">
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!--数据源配置-->
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <property name="poolProperties">
+            <bean class="org.apache.tomcat.jdbc.pool.PoolProperties">
+                <property name="url" value="${mysql.jdbc.url}"/>
+                <property name="driverClassName" value="${mysql.jdbc.driver}"/>
+                <property name="username" value="${mysql.jdbc.username}"/>
+                <property name="password" value="${mysql.jdbc.password}"/>
+                <property name="jmxEnabled" value="true"/>
+                <property name="testWhileIdle" value="false"/>
+                <property name="testOnBorrow" value="true"/>
+                <property name="validationInterval" value="30000"/>
+                <property name="testOnReturn" value="false"/>
+                <property name="validationQuery" value="select 1"/>
+                <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+                <property name="maxActive" value="100"/>
+                <property name="initialSize" value="10"/>
+                <property name="maxWait" value="10000"/>
+                <property name="removeAbandonedTimeout" value="60"/>
+                <property name="minEvictableIdleTimeMillis" value="30000"/>
+                <property name="minIdle" value="10"/>
+                <property name="logAbandoned" value="true"/>
+                <property name="removeAbandoned" value="true"/>
+                <property name="defaultAutoCommit" value="true"/>
+                <property name="jdbcInterceptors" value="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 配置sqlSessionFactory -->
+    <bean id="dySessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:sqlmap/sqlMapConfig.xml" />
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 注入数据库dao -->
+    <bean id="queryDao" class="com.dooioo.base.dao.QueryDao" autowire="byName"  p:sqlSessionFactory-ref="dySessionFactory"/>
+
+    <!-- 配置事务管理器，注意这里的dataSource和SqlSessionFactoryBean的dataSource要一致，不然事务就没有作用了 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>
