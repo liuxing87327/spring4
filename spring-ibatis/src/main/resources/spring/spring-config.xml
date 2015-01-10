@@ -14,6 +14,16 @@
     <!-- 对com.dooioo包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
     <context:component-scan base-package="com.dooioo.*"/>
 
-    <import resource="spring-websocket.xml"/>
+    <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+    <import resource="dataSourceConfig.xml"/>
 
 </beans>

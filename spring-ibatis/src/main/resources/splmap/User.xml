@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+	<typeAlias alias="user" type="com.dooioo.user.model.User"/>
+	
+	<insert id="insert" parameterClass="user">
+		INSERT INTO user
+        ( name, sex )
+	    VALUES
+	    ( #name#, #sex# )
+	</insert>
+	
+</sqlMap>
