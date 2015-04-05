@@ -8,7 +8,7 @@
 			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <aop:config proxy-target-class="true"/>
 
     <!--数据源配置-->
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
@@ -40,8 +40,13 @@
     </bean>
 
     <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-        <property name="configLocation" value="classpath:sqlmap/sqlMapConfig.xml" />
+        <property name="configLocation" value="classpath:sqlMapConfig.xml" />
         <property name="dataSource" ref="dataSource" />
+        <!--<property name="mappingLocations">-->
+            <!--<list>-->
+                <!--<value>classpath*:sqlmap/*.xml</value>-->
+            <!--</list>-->
+        <!--</property>-->
     </bean>
 
     <bean id="queryDao" class="com.dooioo.dao.QueryDao" autowire="byName" p:sqlMapClient="sqlMapClient" />
