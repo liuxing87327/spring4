@@ -41,12 +41,18 @@
 
     <!-- 配置sqlSessionFactory -->
     <bean id="dySessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="configLocation" value="classpath:sqlmap/sqlMapConfig.xml" />
+        <property name="configLocation" value="classpath:sqlMapConfig.xml" />
         <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations">
+            <list>
+                <value>classpath*:sqlmap/*.xml</value>
+            </list>
+        </property>
     </bean>
 
     <!-- 注入数据库dao -->
-    <bean id="queryDao" class="com.dooioo.base.dao.QueryDao" autowire="byName"  p:sqlSessionFactory-ref="dySessionFactory"/>
+    <bean id="queryDao" class="com.dooioo.base.dao.QueryDao" autowire="byName"
+          p:sqlSessionFactory-ref="dySessionFactory"/>
 
     <!-- 配置事务管理器，注意这里的dataSource和SqlSessionFactoryBean的dataSource要一致，不然事务就没有作用了 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

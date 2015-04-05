@@ -12,8 +12,4 @@
         <package name="com.dooioo"/>
     </typeAliases>
 
-    <mappers>
-        <mapper resource="sqlmap/User.xml"/>
-    </mappers>
-
 </configuration>
