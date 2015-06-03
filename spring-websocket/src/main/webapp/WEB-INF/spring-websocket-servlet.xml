@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
-				           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
-				           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+				           http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <!-- 逻辑静态资源路径到物理静态资源路径的支持 -->
     <mvc:resources mapping="/static/**" location="/static/" />
@@ -14,10 +15,20 @@
     <mvc:default-servlet-handler />
 
     <!-- ViewResolver -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:viewClass="org.springframework.web.servlet.view.JstlView"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" p:order="1" />
+
+    <!--websocket配置-->
+    <bean id="webSocketHandler" class="com.dooioo.websocket.handler.WebSocketHandler"/>
+
+    <!--不校验origins，-->
+    <websocket:handlers allowed-origins="*">
+        <websocket:mapping path="websocket" handler="webSocketHandler"/>
+        <websocket:handshake-interceptors>
+            <bean class="com.dooioo.websocket.interceptor.WebSocketHandshakeInterceptor"/>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
 
 </beans>
