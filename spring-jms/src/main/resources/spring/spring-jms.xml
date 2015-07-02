@@ -4,20 +4,24 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->
+    <!-- 真正可以产生Connection的ConnectionFactory，由对应的JMS服务厂商提供-->
     <bean id="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
         <property name="brokerURL" value="tcp://localhost:61616"/>
     </bean>
 
-    <!--普通连接-->
-    <bean id="singleConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
-        <property name="targetConnectionFactory" ref="activeMQConnectionFactory"/>
-    </bean>
+    <!--jms普通连接-->
+    <!--<bean id="singleConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">-->
+        <!--<property name="targetConnectionFactory" ref="activeMQConnectionFactory"/>-->
+    <!--</bean>-->
 
-    <!--池化连接-->
+    <!--jms连接池-->
     <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
         <property name="connectionFactory" ref="activeMQConnectionFactory"/>
-        <property name="maxConnections" value="100"/>
+        <property name="maxConnections" value="200"/>
+    </bean>
+
+    <bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="pooledConnectionFactory"/>
     </bean>
 
     <!--这个是队列目的地-->
@@ -32,14 +36,15 @@
 
     <!-- 消息监听容器 -->
     <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="pooledConnectionFactory"/>
+        <property name="connectionFactory" ref="connectionFactory"/>
         <property name="destination" ref="queueDestination"/>
         <property name="messageListener" ref="consumerMessageListener"/>
+        <property name="taskExecutor" ref="taskExecutor"/>
     </bean>
 
     <!-- Spring提供的JMS工具类，它可以进行消息发送、接收等 -->
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
-        <property name="connectionFactory" ref="pooledConnectionFactory"/>
+        <property name="connectionFactory" ref="connectionFactory"/>
     </bean>
 
 </beans>

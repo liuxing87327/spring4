@@ -10,6 +10,7 @@
 
     <!--<jms:annotation-driven/>-->
 
+    <import resource="spring-job.xml"/>
     <import resource="spring-jms.xml"/>
 
 </beans>
