@@ -181,3 +181,5 @@ Person事件创建好了!
 发布Person事件
 收到Person事件：张三
 ```
+
+https://spring.io/blog/2015/02/11/better-application-events-in-spring-framework-4-2
