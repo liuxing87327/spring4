@@ -17,7 +17,7 @@
         <spring.version>4.1.6.RELEASE</spring.version>
         <tomcat.version>8.0.21</tomcat.version>
         <log4j.version>2.0.2</log4j.version>
-        <mybatis-version>3.2.6</mybatis-version>
+        <mybatis-version>3.5.6</mybatis-version>
     </properties>
 
     <dependencies>
