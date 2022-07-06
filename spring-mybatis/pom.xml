@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <spring.version>4.1.6.RELEASE</spring.version>
-        <tomcat.version>8.0.21</tomcat.version>
+        <tomcat.version>8.5.9</tomcat.version>
         <log4j.version>2.0.2</log4j.version>
         <mybatis-version>3.2.6</mybatis-version>
     </properties>
